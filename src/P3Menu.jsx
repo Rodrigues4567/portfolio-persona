@@ -267,6 +267,12 @@ export default function P3Menu({ onNavigate }) {
           color: rgba(0, 0, 0, 0.86);
         }
 
+        @media (max-width: 1690px) {
+          .p3-name-tag {
+            font-size: 84px;
+          }
+        }
+
         @media (max-width: 1640px) {
           .p3-name-tag {
             font-size: 70px;
@@ -279,7 +285,7 @@ export default function P3Menu({ onNavigate }) {
             gap: 12px;
           }
           .p3-name-tag {
-            font-size: 43px;
+            font-size: 45px;
             top: 10px;
             left: 12px;
           }

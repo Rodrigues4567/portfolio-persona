@@ -9,6 +9,7 @@ import "./App.css";
 
 const MENU_VIDEO = "https://res.cloudinary.com/dn4t5fdrg/video/upload/v1775790300/Mainn-compact_lptotj.mp4";
 const RESUME_VIDEO = "https://res.cloudinary.com/dn4t5fdrg/video/upload/v1775790346/main2_psplmb.mp4";
+const SOCIALS_VIDEO = "https://res.cloudinary.com/dn4t5fdrg/video/upload/v1775790376/main3_lps350.mp4";
 
 function MenuScreen() {
   const navigate = useNavigate();
@@ -63,5 +64,11 @@ function AnimatedRoutes() {
 }
 
 export default function App() {
-  return <AnimatedRoutes />;
+  return (
+    <>
+      <video src={RESUME_VIDEO} preload="auto" muted playsInline style={{ display: "none" }} />
+      <video src={SOCIALS_VIDEO} preload="auto" muted playsInline style={{ display: "none" }} />
+      <AnimatedRoutes />
+    </>
+  );
 }
