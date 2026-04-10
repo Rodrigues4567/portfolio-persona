@@ -1,22 +1,20 @@
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
-import menuVideo from "./assets/Mainn.mp4";
-import main1 from "./assets/main1.mp4";
-import main2 from "./assets/main2.mp4";
-import main3 from "./assets/main3.mp4";
 import P3Menu from "./P3Menu";
-import VideoPage from "./VideoPage";
 import ResumePage from "./ResumePage";
 import PageTransition from "./PageTransition";
 import Socials from "./Socials";
 import AboutMe from "./AboutMe";
 import "./App.css";
 
+const MENU_VIDEO = "https://res.cloudinary.com/dn4t5fdrg/video/upload/v1775790300/Mainn-compact_lptotj.mp4";
+const RESUME_VIDEO = "https://res.cloudinary.com/dn4t5fdrg/video/upload/v1775790346/main2_psplmb.mp4";
+
 function MenuScreen() {
   const navigate = useNavigate();
   return (
     <div id="menu-screen">
-      <video src={menuVideo} autoPlay loop muted playsInline />
+      <video src={MENU_VIDEO} autoPlay loop muted playsInline />
       <P3Menu onNavigate={(page) => navigate(`/${page}`)} />
     </div>
   );
@@ -47,7 +45,7 @@ function AnimatedRoutes() {
           path="/resume"
           element={
             <PageTransition>
-              <ResumePage src={main2} />
+              <ResumePage src={RESUME_VIDEO} />
             </PageTransition>
           }
         />

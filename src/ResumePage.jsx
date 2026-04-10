@@ -2,10 +2,34 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const ITEMS = [
-  { id: "i", badge: "I", title: "EDUCATION", subtitle: "University / Coursework", rank: 3 },
-  { id: "ii", badge: "II", title: "SKILLS", subtitle: "Frontend / Design / UI", rank: 4 },
-  { id: "iii", badge: "III", title: "PROJECTS", subtitle: "Featured Work", rank: 5 },
-  { id: "iv", badge: "IV", title: "EXPERIENCE", subtitle: "Internships / Roles", rank: 2 },
+  {
+    id: "i",
+    badge: "I",
+    title: "EDUCATION",
+    subtitle: "University / Coursework",
+    rank: 3,
+  },
+  {
+    id: "ii",
+    badge: "II",
+    title: "SKILLS",
+    subtitle: "Frontend / Design / UI",
+    rank: 4,
+  },
+  {
+    id: "iii",
+    badge: "III",
+    title: "PROJECTS",
+    subtitle: "Featured Work",
+    rank: 5,
+  },
+  {
+    id: "iv",
+    badge: "IV",
+    title: "EXPERIENCE",
+    subtitle: "Internships / Roles",
+    rank: 2,
+  },
 ];
 
 const EDUCATION_ROWS = [
@@ -28,7 +52,8 @@ export default function ResumePage({ src }) {
   useEffect(() => {
     const onKey = (e) => {
       if (e.key === "ArrowUp") setActive((i) => Math.max(0, i - 1));
-      if (e.key === "ArrowDown") setActive((i) => Math.min(ITEMS.length - 1, i + 1));
+      if (e.key === "ArrowDown")
+        setActive((i) => Math.min(ITEMS.length - 1, i + 1));
       if (e.key === "ArrowLeft") navigate(-1);
       if (e.key === "Escape" || e.key === "Backspace") navigate(-1);
     };
@@ -41,7 +66,14 @@ export default function ResumePage({ src }) {
     <div id="menu-screen">
       <video src={src} autoPlay loop muted playsInline />
       <div className="resume-entry-mask" aria-hidden="true">
-        <video className="resume-entry-video" src={src} autoPlay loop muted playsInline />
+        <video
+          className="resume-entry-video"
+          src={src}
+          autoPlay
+          loop
+          muted
+          playsInline
+        />
       </div>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&display=swap');
@@ -372,7 +404,9 @@ export default function ResumePage({ src }) {
 
       <div className="resume-overlay">
         <div className="resume-stack">
-          <div className={`resume-list-tag${mounted ? " mounted" : ""}`}>LIST</div>
+          <div className={`resume-list-tag${mounted ? " mounted" : ""}`}>
+            LIST
+          </div>
           {ITEMS.map((item, index) => (
             <div
               key={item.id}
@@ -425,14 +459,21 @@ export default function ResumePage({ src }) {
             <div className="resume-detail-bottom">
               <div className="resume-detail-bottom-title">DETAILS</div>
               <div className="resume-detail-bullets">
-                <div className="resume-detail-bullet">- Maintain progress across required classes and supporting work.</div>
-                <div className="resume-detail-bullet">- Track portfolio-ready projects tied to coursework and labs.</div>
-                <div className="resume-detail-bullet">- Keep materials prepared for internships, research, and review.</div>
+                <div className="resume-detail-bullet">
+                  - Maintain progress across required classes and supporting
+                  work.
+                </div>
+                <div className="resume-detail-bullet">
+                  - Track portfolio-ready projects tied to coursework and labs.
+                </div>
+                <div className="resume-detail-bullet">
+                  - Keep materials prepared for internships, research, and
+                  review.
+                </div>
               </div>
             </div>
           </div>
         )}
-
       </div>
     </div>
   );
