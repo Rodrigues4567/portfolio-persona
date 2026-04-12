@@ -663,6 +663,77 @@ export default function AboutMe() {
           border-radius: 3px;
           padding: 1px 6px; font-size: 11px;
         }
+
+        @media (max-width: 1190px) {
+          .sc-bar {
+            height: 50px;
+          }
+          .sc-bar-outer.active .sc-bar,
+          .sc-bar-outer.active .sc-bar-red {
+            height: 72px;
+          }
+          .sc-char {
+            left: 80px;
+            max-width: 120px;
+          }
+          .sc-role {
+            font-size: 36px;
+          }
+          .sc-label {
+            font-size: 22px;
+          }
+          .sc-icon {
+            font-size: 17px;
+            width: 24px;
+          }
+          .sc-stat-num {
+            font-size: 20px;
+          }
+          .sc-back-arrow {
+            width: 28px;
+            height: 28px;
+          }
+        }
+
+        @media (max-width: 700px) {
+          .sc-bar,
+          .sc-bar-red {
+            width: 90vw;
+          }
+          .sc-bar {
+            height: 52px;
+          }
+          .sc-bar-outer.active .sc-bar,
+          .sc-bar-outer.active .sc-bar-red {
+            height: 62px;
+          }
+          .sc-char {
+            left: 55px;
+            max-width: 110px;
+          }
+          .sc-role {
+            font-size: 23px;
+          }
+          .sc-label {
+            font-size: 22px;
+            letter-spacing: 2px;
+          }
+          .sc-icon {
+            font-size: 18px;
+            width: 18px;
+          }
+          .sc-stat-num {
+            font-size: 14px;
+          }
+          .sc-stats {
+            padding-right: 10px;
+            gap: 6px;
+          }
+          .sc-back-arrow {
+            width: 20px;
+            height: 20px;
+          }
+        }
       `}</style>
 
       <div className={`sc-root${revealed ? " revealed" : ""}`} role="navigation">
