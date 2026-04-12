@@ -8,7 +8,7 @@ import icon1 from "./assets/icon1.png";
 import icon2 from "./assets/icon2.png";
 import icon3 from "./assets/icon3.png";
 
-const bgVideo = "https://res.cloudinary.com/dn4t5fdrg/video/upload/v1775790376/main3_lps350.mp4";
+const bgVideo = "https://res.cloudinary.com/dn4t5fdrg/video/upload/q_auto/v1775790376/main3_lps350.mp4";
 
 const CHARS = [char1, char2, char3];
 
@@ -146,7 +146,7 @@ export default function Socials() {
 
   return (
     <div id="menu-screen">
-      <video src={bgVideo} autoPlay loop muted playsInline />
+      <video src={bgVideo} preload="auto" autoPlay loop muted playsInline />
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,400;0,700;1,700&display=swap');
 

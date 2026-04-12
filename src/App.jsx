@@ -7,15 +7,16 @@ import Socials from "./Socials";
 import AboutMe from "./AboutMe";
 import "./App.css";
 
-const MENU_VIDEO = "https://res.cloudinary.com/dn4t5fdrg/video/upload/v1775790300/Mainn-compact_lptotj.mp4";
-const RESUME_VIDEO = "https://res.cloudinary.com/dn4t5fdrg/video/upload/v1775790346/main2_psplmb.mp4";
-const SOCIALS_VIDEO = "https://res.cloudinary.com/dn4t5fdrg/video/upload/v1775790376/main3_lps350.mp4";
+const MENU_VIDEO   = "https://res.cloudinary.com/dn4t5fdrg/video/upload/q_auto/v1775790300/Mainn-compact_lptotj.mp4";
+const RESUME_VIDEO = "https://res.cloudinary.com/dn4t5fdrg/video/upload/q_auto/v1775790346/main2_psplmb.mp4";
+const SOCIALS_VIDEO = "https://res.cloudinary.com/dn4t5fdrg/video/upload/q_auto/v1775790376/main3_lps350.mp4";
+const ABOUT_VIDEO  = "https://res.cloudinary.com/dn4t5fdrg/video/upload/q_auto/v1775931424/main1_vsbgmj.mp4";
 
 function MenuScreen() {
   const navigate = useNavigate();
   return (
     <div id="menu-screen">
-      <video src={MENU_VIDEO} autoPlay loop muted playsInline />
+      <video src={MENU_VIDEO} preload="auto" autoPlay loop muted playsInline />
       <P3Menu onNavigate={(page) => navigate(`/${page}`)} />
     </div>
   );
@@ -66,8 +67,10 @@ function AnimatedRoutes() {
 export default function App() {
   return (
     <>
+      <video src={MENU_VIDEO}   preload="auto" muted playsInline style={{ display: "none" }} />
       <video src={RESUME_VIDEO} preload="auto" muted playsInline style={{ display: "none" }} />
       <video src={SOCIALS_VIDEO} preload="auto" muted playsInline style={{ display: "none" }} />
+      <video src={ABOUT_VIDEO}  preload="auto" muted playsInline style={{ display: "none" }} />
       <AnimatedRoutes />
     </>
   );

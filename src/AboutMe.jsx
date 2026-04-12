@@ -3,37 +3,57 @@ import { useNavigate } from "react-router-dom";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import char1 from "./assets/char1.png";
 import char2 from "./assets/char2.png";
-import bgVideo from "./assets/main1.mp4";
 import icon1 from "./assets/icon1.png";
 import mainm from "./assets/mainm.jpeg";
+
+const bgVideo = "https://res.cloudinary.com/dn4t5fdrg/video/upload/q_auto/v1775931424/main1_vsbgmj.mp4";
 
 const MAIN_IMAGES = [mainm];
 
 const REVEAL_CONTENT = [
   {
-    upper: ["name moneybagg", "age:23"],
-    lower: "major: computer science",
+    upper: ["Full Stack Dev. focused on building modern web applications using Next.js,", "TypeScript, and Node.js. Experienced in developing real-world solutions, with strong skills in", "problem-solving, clean code, and component-based architecture."],
+    lower: ["major: Software Engineering", "Degree: Systems Analysis and Development"]
   },
 ];
 
 const BARS = [
   { id: "back", isBack: true, char: char2, role: "BACK" },
   {
-    id: "about", isBack: false, char: char1, role: "LEADER", label: "ABOUT ME",
-    handle: "@yourname", href: "https://twitch.tv/yourname", icon: "🎮", barIcon: icon1, bars: 1, newBars: [0], counts: ["56"],
+    id: "about",
+    isBack: false,
+    char: char1,
+    role: "LEADER",
+    label: "ABOUT ME",
+    handle: "@yourname",
+    href: "https://twitch.tv/yourname",
+    icon: "🎮",
+    barIcon: icon1,
+    bars: 1,
+    newBars: [0],
+    counts: ["56"],
     links: ["twitch.tv/videos/2041837265"],
     stats: [
       { tag: "FOL", value: "1.2K", color: "#9147ff" },
-      { tag: "VWR", value: "042",  color: "#bf94ff" },
+      { tag: "VWR", value: "042", color: "#bf94ff" },
     ],
   },
 ];
 
 export default function AboutMe() {
-  const [active, setActive]     = useState(0);
-  const [mounted, setMounted]   = useState(false);
+  const [active, setActive] = useState(0);
+  const [mounted, setMounted] = useState(false);
   const [revealed, setRevealed] = useState(false);
+  const [closing, setClosing] = useState(false);
   const navigate = useNavigate();
+
+  const handleClose = () => {
+    setClosing(true);
+    setTimeout(() => {
+      setRevealed(false);
+      setClosing(false);
+    }, 380);
+  };
 
   useEffect(() => {
     const t = setTimeout(() => setMounted(true), 60);
@@ -42,14 +62,14 @@ export default function AboutMe() {
 
   useEffect(() => {
     const onKey = (e) => {
-      if (e.key === "ArrowUp") setActive(i => Math.max(0, i - 1));
-      if (e.key === "ArrowDown") setActive(i => Math.min(BARS.length - 1, i + 1));
+      if (e.key === "ArrowUp") { if (!revealed) setActive((i) => Math.max(0, i - 1)); }
+      if (e.key === "ArrowDown") { if (!revealed) setActive((i) => Math.min(BARS.length - 1, i + 1)); }
       if (e.key === "Enter" || e.key === "ArrowRight") {
         if (BARS[active].isBack) navigate("/");
         else setRevealed(true);
       }
       if (e.key === "ArrowLeft") {
-        if (revealed) setRevealed(false);
+        if (revealed) handleClose();
         else navigate("/");
       }
       if (e.key === "Escape" || e.key === "Backspace") navigate("/");
@@ -62,29 +82,40 @@ export default function AboutMe() {
 
   return (
     <div id="menu-screen">
-      <video src={bgVideo} autoPlay loop muted playsInline />
-      {revealed && !BARS[active].isBack && <div key={`dim-${active}`} className="sc-dim" />}
+      <video src={bgVideo} preload="auto" autoPlay loop muted playsInline />
       {revealed && !BARS[active].isBack && (
-        <div key={`panel-${active}`} className={`sc-reveal-panel${mounted ? " mounted" : ""}`}>
+        <div key={`dim-${active}`} className="sc-dim" />
+      )}
+      {revealed && !BARS[active].isBack && (
+        <div
+          key={`panel-${active}`}
+          className={`sc-reveal-panel${mounted ? " mounted" : ""}${closing ? " closing" : ""}`}
+        >
           <div className="sc-reveal-upper-bar">
             {REVEAL_CONTENT[revealIndex].upper.map((line) => (
-              <div className="sc-reveal-upper-line" key={line}>{line}</div>
+              <div className="sc-reveal-upper-line" key={line}>
+                {line}
+              </div>
             ))}
           </div>
-          <div className="sc-reveal-lower-bar">{REVEAL_CONTENT[revealIndex].lower}</div>
+          <div className="sc-reveal-lower-bar">
+            {REVEAL_CONTENT[revealIndex].lower.map((line) => (
+              <div key={line}>{line}</div>
+            ))}
+          </div>
         </div>
       )}
       {revealed && !BARS[active].isBack && (
-        <div key={`nav-${active}`} className="sc-right-nav">
+        <div key={`nav-${active}`} className={`sc-right-nav${closing ? " closing" : ""}`}>
           <span className="sc-nav-arrow left">◄</span>
-          <span className="sc-nav-btn">L1</span>
-          <span className="sc-nav-dot" />
-          <span className="sc-nav-btn">R1</span>
-          <span className="sc-nav-arrow right">►</span>
+          <button className="sc-nav-btn" onClick={handleClose}>BACK</button>
         </div>
       )}
       {revealed && !BARS[active].isBack && (
-        <div key={`portrait-${active}`} className={`sc-main-portrait-shell${mounted ? " mounted" : ""}`}>
+        <div
+          key={`portrait-${active}`}
+          className={`sc-main-portrait-shell${mounted ? " mounted" : ""}${closing ? " closing" : ""}`}
+        >
           <img
             className="sc-main-portrait"
             src={MAIN_IMAGES[revealIndex]}
@@ -141,6 +172,22 @@ export default function AboutMe() {
           }
         }
 
+        @keyframes sc-reveal-bar-out {
+          0%   { opacity: 0.92; transform: translateX(0) rotate(-20deg) scaleX(1); }
+          40%  { opacity: 0.96; transform: translateX(18px) rotate(-20deg) scaleX(1.03); }
+          100% { opacity: 0;    transform: translateX(-120px) rotate(-20deg) scaleX(0.72); }
+        }
+
+        @keyframes sc-portrait-out {
+          0%   { opacity: 1;  transform: translateX(0) skewX(-8deg) scale(1);    filter: blur(0); }
+          100% { opacity: 0;  transform: translateX(78px) skewX(-8deg) scale(0.94); filter: blur(8px); }
+        }
+
+        @keyframes sc-nav-out {
+          0%   { opacity: 1; transform: translateX(-40px) rotate(-20deg) scale(1); }
+          100% { opacity: 0; transform: translateX(-80px) rotate(-20deg) scale(0.7); }
+        }
+
         @keyframes sc-portrait-in {
           0% {
             opacity: 0;
@@ -187,6 +234,9 @@ export default function AboutMe() {
           transform: translateX(0) skewX(-8deg) scale(1);
           animation: sc-portrait-in 0.5s cubic-bezier(0.22, 1, 0.36, 1);
         }
+        .sc-main-portrait-shell.closing {
+          animation: sc-portrait-out 0.28s ease forwards;
+        }
 
         .sc-reveal-panel {
           position: absolute;
@@ -208,11 +258,16 @@ export default function AboutMe() {
           transform-origin: left bottom;
           transition: opacity 0.3s ease, transform 0.35s ease;
         }
+
         .sc-reveal-panel.mounted {
           opacity: 0.92;
           transform: translateX(0) rotate(-20deg);
           animation: sc-reveal-bar-in 0.46s cubic-bezier(0.22, 1, 0.36, 1);
         }
+        .sc-reveal-panel.closing {
+          animation: sc-reveal-bar-out 0.38s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
         .sc-reveal-panel::before {
           content: "";
           position: absolute;
@@ -223,6 +278,7 @@ export default function AboutMe() {
           background: linear-gradient(180deg, #e03d31 0%, #eb3333 100%);
           clip-path: inherit;
         }
+
         .sc-reveal-upper-bar {
           position: absolute;
           top: 10%;
@@ -240,13 +296,20 @@ export default function AboutMe() {
           color: #fff;
           text-align: center;
         }
+
         .sc-reveal-upper-line {
           font-family: 'Montserrat', sans-serif;
           font-weight: 300;
-          font-size: 20px;
+          font-size: 19px;
           letter-spacing: 0.5px;
           line-height: 1.15;
         }
+        @media (max-width: 1710px) {
+          .sc-reveal-upper-line {
+            font-size: 18px;
+          }
+        }
+
         .sc-reveal-lower-bar {
           position: absolute;
           top: 58%;
@@ -257,15 +320,21 @@ export default function AboutMe() {
           clip-path: polygon(0 0, 100% 0, calc(100% - 22px) 100%, 0 100%);
           box-shadow: 0 0 0 1px rgba(255,255,255,0.06);
           display: flex;
-          align-items: center;
-          justify-content: flex-start;
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: center;
+          gap: 4px;
           color: #fff;
           font-family: 'Montserrat', sans-serif;
           font-weight: 300;
-          font-size: 22px;
+          font-size: 20px;
           letter-spacing: 0.4px;
-          text-transform: lowercase;
           padding-left: 22px;
+        }
+        @media (max-width: 1710px) {
+          .sc-reveal-lower-bar {
+            font-size: 18px;
+          }
         }
 
         @keyframes sc-right-nav-pop {
@@ -286,9 +355,12 @@ export default function AboutMe() {
           transform-origin: left bottom;
           animation: sc-right-nav-pop 0.38s cubic-bezier(0.22,1,0.36,1) both;
         }
+        .sc-right-nav.closing {
+          animation: sc-nav-out 0.25s ease forwards;
+        }
         .sc-right-nav .sc-nav-btn {
           font-family: 'Bebas Neue', sans-serif;
-          font-size: 100px;
+          font-size: 90px;
           letter-spacing: 3px;
           line-height: 1;
           user-select: none;
@@ -298,6 +370,8 @@ export default function AboutMe() {
           background: none;
           border: none;
           padding: 0 6px;
+          pointer-events: all;
+          cursor: pointer;
         }
         .sc-right-nav .sc-nav-dot {
           width: 16px;
@@ -327,6 +401,11 @@ export default function AboutMe() {
         }
 
         /* ── Each bar ── */
+        .sc-root.revealed .sc-bar {
+          pointer-events: none;
+          cursor: default;
+        }
+
         .sc-bar {
           position: relative;
           width: 45vw;
@@ -586,7 +665,7 @@ export default function AboutMe() {
         }
       `}</style>
 
-      <div className="sc-root" role="navigation">
+      <div className={`sc-root${revealed ? " revealed" : ""}`} role="navigation">
         {BARS.map((bar, i) => (
           <div
             key={bar.id}
@@ -610,10 +689,11 @@ export default function AboutMe() {
                 <div className="sc-role">{bar.role}</div>
                 <div className="sc-main">
                   <div className="sc-main-top">
-                    {bar.isBack
-                      ? <FaArrowLeftLong className="sc-back-arrow" />
-                      : <div className="sc-label">{bar.label}</div>
-                    }
+                    {bar.isBack ? (
+                      <FaArrowLeftLong className="sc-back-arrow" />
+                    ) : (
+                      <div className="sc-label">{bar.label}</div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -623,9 +703,18 @@ export default function AboutMe() {
       </div>
 
       <div className={`sc-footer${mounted ? " mounted" : ""}`}>
-        <div className="sc-footer-row"><span className="sc-footer-key">↑↓</span><span>SELECT</span></div>
-        <div className="sc-footer-row"><span className="sc-footer-key">↵</span><span>REVEAL</span></div>
-        <div className="sc-footer-row"><span className="sc-footer-key">ESC</span><span>BACK</span></div>
+        <div className="sc-footer-row">
+          <span className="sc-footer-key">↑↓</span>
+          <span>SELECT</span>
+        </div>
+        <div className="sc-footer-row">
+          <span className="sc-footer-key">↵</span>
+          <span>REVEAL</span>
+        </div>
+        <div className="sc-footer-row">
+          <span className="sc-footer-key">ESC</span>
+          <span>BACK</span>
+        </div>
       </div>
     </div>
   );

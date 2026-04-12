@@ -267,7 +267,7 @@ export default function P3Menu({ onNavigate }) {
           color: rgba(0, 0, 0, 0.86);
         }
 
-        @media (max-width: 1690px) {
+        @media (max-width: 1700px) {
           .p3-name-tag {
             font-size: 84px;
           }
