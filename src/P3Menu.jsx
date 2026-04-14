@@ -285,7 +285,7 @@ export default function P3Menu({ onNavigate }) {
             gap: 12px;
           }
           .p3-name-tag {
-            font-size: 45px;
+            font-size: 48px;
             top: 10px;
             left: 12px;
           }

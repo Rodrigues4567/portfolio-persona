@@ -123,6 +123,27 @@ export default function AboutMe() {
           />
         </div>
       )}
+      {revealed && !BARS[active].isBack && (
+        <div key={`mob-${active}`} className={`sc-mobile-reveal${closing ? " closing" : ""}`}>
+          <button className="sc-mob-back" onClick={handleClose}>
+            <span className="sc-nav-arrow left">◄</span>
+            <span>BACK</span>
+          </button>
+          <div className="sc-mob-img-wrap">
+            <img src={MAIN_IMAGES[revealIndex]} alt="" className="sc-mob-img" />
+          </div>
+          <div className="sc-mob-text">
+            {REVEAL_CONTENT[revealIndex].upper.join(" ")}
+          </div>
+          <div className="sc-mob-formations">
+            {REVEAL_CONTENT[revealIndex].lower.map((line) => (
+              <div key={line} className="sc-mob-formation-card">
+                <span>{line}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,400;0,700;1,700&family=Montserrat:wght@300&display=swap');
 
@@ -222,7 +243,7 @@ export default function AboutMe() {
           right: -3vw;
           z-index: 13;
           pointer-events: none;
-          width: 43vw;
+          width: 40vw;
           height: 100vh;
           overflow: hidden;
           opacity: 0;
@@ -242,7 +263,7 @@ export default function AboutMe() {
           position: absolute;
           top: 44vh;
           left: -6vw;
-          width: 88vw;
+          width: 89vw;
           height: 60vh;
           z-index: 12;
           pointer-events: none;
@@ -664,6 +685,21 @@ export default function AboutMe() {
           padding: 1px 6px; font-size: 11px;
         }
 
+        @media (max-width: 1485px) {
+          .sc-main-portrait-shell {
+            width: 35vw;
+          }
+          .sc-reveal-panel {
+            width: 97vw;
+          }
+          .sc-reveal-upper-bar {
+            padding-right: 0vw;
+          }
+          .sc-reveal-upper-line {
+            font-size: 17px;
+          }
+        }
+
         @media (max-width: 1190px) {
           .sc-bar {
             height: 50px;
@@ -732,6 +768,128 @@ export default function AboutMe() {
           .sc-back-arrow {
             width: 20px;
             height: 20px;
+          }
+        }
+
+        /* ── Mobile revealed layout ── */
+        .sc-mobile-reveal { display: none; }
+
+        @media (max-width: 700px) {
+          .sc-reveal-panel,
+          .sc-right-nav,
+          .sc-main-portrait-shell { display: none !important; }
+
+          .sc-mobile-reveal {
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            inset: 0;
+            z-index: 20;
+            background: transparent;
+            overflow-y: auto;
+            animation: sc-mob-in 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+          }
+          .sc-mobile-reveal.closing {
+            animation: sc-mob-out 0.26s ease forwards;
+          }
+          @keyframes sc-mob-in {
+            from { opacity: 0; transform: translateY(22px); }
+            to   { opacity: 1; transform: translateY(0); }
+          }
+          @keyframes sc-mob-out {
+            from { opacity: 1; transform: translateY(0); }
+            to   { opacity: 0; transform: translateY(22px); }
+          }
+
+          .sc-mob-back {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #111;
+            border: none;
+            color: #fff;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 26px;
+            letter-spacing: 4px;
+            padding: 16px 24px;
+            width: 100%;
+            cursor: pointer;
+            pointer-events: all;
+            touch-action: manipulation;
+            clip-path: polygon(0 0, 100% 0, calc(100% - 28px) 100%, 0 100%);
+            box-shadow: 0 6px 24px rgba(0,0,0,0.65);
+            flex-shrink: 0;
+          }
+          .sc-mob-back .sc-nav-arrow.left {
+            font-size: 22px;
+            color: #c4001a;
+            animation: sc-arrow-left 0.8s ease-in-out infinite;
+          }
+
+          .sc-mob-img-wrap {
+            width: 100%;
+            height: 42vh;
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+          }
+          .sc-mob-img-wrap::before,
+          .sc-mob-img-wrap::after {
+            content: '';
+            position: absolute;
+            left: -5%;
+            width: 110%;
+            height: 13px;
+            background: rgba(255,255,255,0.9);
+            z-index: 2;
+            pointer-events: none;
+          }
+          .sc-mob-img-wrap::before {
+            top: 0;
+          }
+          .sc-mob-img-wrap::after {
+            bottom: 0;
+          }
+          .sc-mob-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 20%;
+            opacity: 0.82;
+          }
+
+          .sc-mob-text {
+            background: rgba(0, 0, 0, 0.75);
+            padding: 24px 22px;
+            color: rgba(255,255,255,0.88);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            font-size: 15px;
+            line-height: 1.72;
+            letter-spacing: 0.3px;
+            flex-shrink: 0;
+          }
+
+          .sc-mob-formations {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 18px 16px 40px;
+            flex: 1;
+          }
+          .sc-mob-formation-card {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: rgba(0, 0, 0, 0.75);
+            padding: 16px 20px;
+            clip-path: polygon(0 0, 100% 0, calc(100% - 20px) 100%, 0 100%);
+            color: rgba(255,255,255,0.85);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            font-size: 14px;
+            letter-spacing: 0.3px;
+            box-shadow: 18px 0 0 rgba(215,13,44,0.82);
           }
         }
       `}</style>
