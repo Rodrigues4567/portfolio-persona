@@ -3,6 +3,13 @@ import { useNavigate } from "react-router-dom";
 
 const ITEMS = [
   {
+    id: "back",
+    badge: "◄",
+    title: "BACK",
+    subtitle: "Return to Home",
+    isBack: true,
+  },
+  {
     id: "i",
     badge: "I",
     title: "EDUCATION",
@@ -33,7 +40,11 @@ const ITEMS = [
 ];
 
 const EDUCATION_ROWS = [
-  { index: "01", title: "Systems Analysis and Development", status: "Complete" },
+  {
+    index: "01",
+    title: "Systems Analysis and Development",
+    status: "Complete",
+  },
   { index: "02", title: "Software Engineering", status: "In Progress" },
 ];
 
@@ -52,13 +63,14 @@ export default function ResumePage({ src }) {
       if (e.key === "ArrowUp") setActive((i) => Math.max(0, i - 1));
       if (e.key === "ArrowDown")
         setActive((i) => Math.min(ITEMS.length - 1, i + 1));
+      if (e.key === "Enter" && active === 0) navigate("/");
       if (e.key === "ArrowLeft") navigate(-1);
       if (e.key === "Escape" || e.key === "Backspace") navigate(-1);
     };
 
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [navigate]);
+  }, [navigate, active]);
 
   return (
     <div id="menu-screen">
@@ -415,12 +427,8 @@ export default function ResumePage({ src }) {
               key={item.id}
               className={`resume-card-wrap${active === index ? " active" : ""}${mounted ? " mounted" : ""}`}
               style={{ transitionDelay: `${index * 55}ms` }}
-              onMouseEnter={() => {
-                setActive(index);
-              }}
-              onClick={() => {
-                setActive(index);
-              }}
+              onMouseEnter={() => setActive(index)}
+              onClick={() => (item.isBack ? navigate("/") : setActive(index))}
             >
               <div className="resume-card">
                 <div className="resume-badge">
@@ -428,10 +436,12 @@ export default function ResumePage({ src }) {
                 </div>
                 <div className="resume-card-inner">
                   <div className="resume-title">{item.title}</div>
-                  <div className="resume-rank">
-                    <div className="resume-rank-label">RANK</div>
-                    <div className="resume-rank-number">{item.rank}</div>
-                  </div>
+                  {!item.isBack && (
+                    <div className="resume-rank">
+                      <div className="resume-rank-label">RANK</div>
+                      <div className="resume-rank-number">{item.rank}</div>
+                    </div>
+                  )}
                 </div>
                 <div className="resume-subtitle-bar">
                   <div className="resume-subtitle">{item.subtitle}</div>
@@ -441,12 +451,12 @@ export default function ResumePage({ src }) {
           ))}
         </div>
 
-        {active === 0 && (
+        {active === 1 && (
           <div className="resume-detail-panel">
             <div className="resume-detail-top">
               <div className="resume-detail-top-index">01</div>
               <div className="resume-detail-top-title">EDUCATION LOG</div>
-              <div className="resume-detail-top-progress">7/5</div>
+              <div className="resume-detail-top-progress">2/2</div>
             </div>
 
             <div className="resume-detail-list">
@@ -466,10 +476,12 @@ export default function ResumePage({ src }) {
                   - Building a strong foundation in software engineering.
                 </div>
                 <div className="resume-detail-bullet">
-                  - Applying what I learn through personal projects and real-world practice.
+                  - Applying what I learn through personal projects and
+                  real-world practice.
                 </div>
                 <div className="resume-detail-bullet">
-                  - Continuously improving my skills and preparing for professional challenges.
+                  - Continuously improving my skills and preparing for
+                  professional challenges.
                 </div>
               </div>
             </div>
