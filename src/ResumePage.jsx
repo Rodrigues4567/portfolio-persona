@@ -13,7 +13,7 @@ const ITEMS = [
     id: "ii",
     badge: "II",
     title: "SKILLS",
-    subtitle: "Frontend / Design / UI",
+    subtitle: "Frontend / Backend",
     rank: 4,
   },
   {
@@ -33,10 +33,8 @@ const ITEMS = [
 ];
 
 const EDUCATION_ROWS = [
-  { index: "01", title: "General Education", status: "Complete" },
-  { index: "02", title: "Computer Science Core", status: "In Progress" },
-  { index: "03", title: "Elective Track", status: "Queued" },
-  { index: "04", title: "Capstone Prep", status: "Pending" },
+  { index: "01", title: "Systems Analysis and Development", status: "Complete" },
+  { index: "02", title: "Software Engineering", status: "In Progress" },
 ];
 
 export default function ResumePage({ src }) {
@@ -374,6 +372,10 @@ export default function ResumePage({ src }) {
           padding: 7px 12px;
           clip-path: polygon(0 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
         }
+        .resume-detail-row:first-child {
+          padding-top: 10px;
+          padding-bottom: 10px;
+        }
         .resume-detail-bottom {
           position: relative;
           margin-top: 22px;
@@ -461,15 +463,13 @@ export default function ResumePage({ src }) {
               <div className="resume-detail-bottom-title">DETAILS</div>
               <div className="resume-detail-bullets">
                 <div className="resume-detail-bullet">
-                  - Maintain progress across required classes and supporting
-                  work.
+                  - Building a strong foundation in software engineering.
                 </div>
                 <div className="resume-detail-bullet">
-                  - Track portfolio-ready projects tied to coursework and labs.
+                  - Applying what I learn through personal projects and real-world practice.
                 </div>
                 <div className="resume-detail-bullet">
-                  - Keep materials prepared for internships, research, and
-                  review.
+                  - Continuously improving my skills and preparing for professional challenges.
                 </div>
               </div>
             </div>
