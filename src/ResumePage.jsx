@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const ITEMS = [
@@ -24,28 +24,32 @@ const ITEMS = [
     rank: 4,
   },
   {
-    id: "iii",
-    badge: "III",
-    title: "PROJECTS",
-    subtitle: "Featured Work",
-    rank: 5,
-  },
-  {
     id: "iv",
-    badge: "IV",
+    badge: "III",
     title: "EXPERIENCE",
     subtitle: "Internships / Roles",
-    rank: 2,
+    rank: 5,
   },
 ];
 
 const EDUCATION_ROWS = [
-  {
-    index: "01",
-    title: "Systems Analysis and Development",
-    status: "Complete",
-  },
+  { index: "01", title: "Systems Analysis and Development", status: "Complete" },
   { index: "02", title: "Software Engineering", status: "In Progress" },
+];
+
+const SKILLS_ROWS = [
+  {
+    index: "01", title: "Frontend",
+    details: ["React.js", "Next.js", "TypeScript", "Tailwind CSS"],
+  },
+  {
+    index: "02", title: "Backend",
+    details: ["Node.js", "Nest.js", "REST APIs", "Prisma ORM"],
+  },
+  {
+    index: "03", title: "Tools",
+    details: ["Docker", "Git & GitHub", "Vercel"],
+  },
 ];
 
 export default function ResumePage({ src }) {
@@ -300,6 +304,28 @@ export default function ResumePage({ src }) {
             16px 16px 0 rgba(0, 6, 30, 0.55);
           overflow: hidden;
         }
+        .resume-detail-panel--scroll {
+          max-height: 84vh;
+          display: flex;
+          flex-direction: column;
+        }
+        .resume-detail-scroll-inner {
+          flex: 1;
+          min-height: 0;
+          overflow-y: auto;
+          overflow-x: hidden;
+          pointer-events: all;
+        }
+        .resume-detail-scroll-inner::-webkit-scrollbar {
+          width: 4px;
+        }
+        .resume-detail-scroll-inner::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        .resume-detail-scroll-inner::-webkit-scrollbar-thumb {
+          background: rgba(133, 244, 255, 0.3);
+          border-radius: 2px;
+        }
         .resume-detail-panel::before {
           content: "";
           position: absolute;
@@ -387,6 +413,18 @@ export default function ResumePage({ src }) {
         .resume-detail-row:first-child {
           padding-top: 10px;
           padding-bottom: 10px;
+        }
+        .resume-detail-row-body {
+          display: flex;
+          flex-direction: column;
+          gap: 3px;
+        }
+        .resume-detail-row-tech {
+          font-family: 'Bebas Neue', sans-serif;
+          font-size: 17px;
+          letter-spacing: 1px;
+          color: #85f4ff;
+          line-height: 1;
         }
         .resume-detail-bottom {
           position: relative;
@@ -483,6 +521,38 @@ export default function ResumePage({ src }) {
                   - Continuously improving my skills and preparing for
                   professional challenges.
                 </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {active === 2 && (
+          <div className="resume-detail-panel resume-detail-panel--scroll">
+            <div className="resume-detail-top">
+              <div className="resume-detail-top-index">02</div>
+              <div className="resume-detail-top-title">SKILLS</div>
+              <div className="resume-detail-top-progress">3/3</div>
+            </div>
+
+            <div className="resume-detail-scroll-inner">
+              <div className="resume-detail-list">
+                {SKILLS_ROWS.map((row) => (
+                  <React.Fragment key={row.index}>
+                    <div className="resume-detail-row">
+                      <div className="resume-detail-row-index">{row.index}</div>
+                      <div className="resume-detail-row-body">
+                        <div className="resume-detail-row-title">{row.title}</div>
+                      </div>
+                    </div>
+                    <div className="resume-detail-bottom" style={{ marginTop: "4px" }}>
+                      <div className="resume-detail-bullets">
+                        {row.details.map((d) => (
+                          <div className="resume-detail-bullet" key={d}>- {d}</div>
+                        ))}
+                      </div>
+                    </div>
+                  </React.Fragment>
+                ))}
               </div>
             </div>
           </div>

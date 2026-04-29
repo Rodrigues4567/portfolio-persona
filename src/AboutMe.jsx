@@ -12,7 +12,7 @@ const MAIN_IMAGES = [mainm];
 
 const REVEAL_CONTENT = [
   {
-    upper: ["Full Stack Dev. focused on building modern web applications using Next.js,", "TypeScript, and Node.js. Experienced in developing real-world solutions, with strong skills in", "problem-solving, clean code, and component-based architecture."],
+    upper: ["Hello, I'm Allyson Rodrigues.", "Full Stack Dev. focused on building modern web applications using Next.js,", "TypeScript, and Node.js. Experienced in developing real-world solutions, with strong skills in", "problem-solving, clean code, and component-based architecture."],
     lower: ["major: Software Engineering", "Degree: Systems Analysis and Development"]
   },
 ];
