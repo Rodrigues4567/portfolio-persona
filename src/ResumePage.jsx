@@ -52,9 +52,14 @@ const SKILLS_ROWS = [
   },
 ];
 
+const EXPERIENCE_ROWS = [
+  { index: "01", title: "Frontend Developer at Frontend Fusion", date: "NOV 2025 - MAI 2026", type: "VOLUNTEER" },
+  { index: "02", title: "Frontend Developer at MyByte", date: "FEB 2026 - PRESENT"},
+];
+
 export default function ResumePage({ src }) {
   const navigate = useNavigate();
-  const [active, setActive] = useState(1);
+  const [active, setActive] = useState(null);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -64,9 +69,8 @@ export default function ResumePage({ src }) {
 
   useEffect(() => {
     const onKey = (e) => {
-      if (e.key === "ArrowUp") setActive((i) => Math.max(0, i - 1));
-      if (e.key === "ArrowDown")
-        setActive((i) => Math.min(ITEMS.length - 1, i + 1));
+      if (e.key === "ArrowUp") setActive((i) => i === null ? null : Math.max(0, i - 1));
+      if (e.key === "ArrowDown") setActive((i) => i === null ? 0 : Math.min(ITEMS.length - 1, i + 1));
       if (e.key === "Enter" && active === 0) navigate("/");
       if (e.key === "ArrowLeft") navigate(-1);
       if (e.key === "Escape" || e.key === "Backspace") navigate(-1);
@@ -410,6 +414,19 @@ export default function ResumePage({ src }) {
           padding: 7px 12px;
           clip-path: polygon(0 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
         }
+        .resume-detail-status-wrap {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 3px;
+          flex-shrink: 0;
+        }
+        .resume-detail-status-sub {
+          font-family: 'Bebas Neue', sans-serif;
+          font-size: 19px;
+          letter-spacing: 1.5px;
+          color: #85f4ff;
+        }
         .resume-detail-row:first-child {
           padding-top: 10px;
           padding-bottom: 10px;
@@ -451,6 +468,144 @@ export default function ResumePage({ src }) {
           font-size: 21px;
           line-height: 1.15;
           color: #edfaff;
+        }
+
+        @media (max-width: 690px) {
+          #menu-screen { overflow-y: auto; }
+
+          .resume-overlay {
+            position: absolute;
+            inset: 0;
+            overflow-y: auto;
+            overflow-x: hidden;
+            pointer-events: all;
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 60px;
+          }
+
+          .resume-stack {
+            position: relative;
+            top: auto;
+            left: auto;
+            width: 100%;
+            transform: none;
+            padding: 14px 12px 0;
+            gap: 8px;
+          }
+
+          .resume-list-tag {
+            font-size: 52px;
+            margin: 0 0 6px 6px;
+          }
+
+          .resume-card-wrap {
+            width: 100%;
+          }
+
+          .resume-card {
+            height: 70px;
+            clip-path: polygon(0 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+          }
+          .resume-card-wrap.active .resume-card {
+            box-shadow: 8px 8px 0 #d63232;
+          }
+
+          .resume-badge {
+            top: 8px;
+            left: -6px;
+            width: 38px;
+            height: 46px;
+          }
+          .resume-badge-text { font-size: 21px; }
+
+          .resume-card-inner {
+            padding: 8px 12px 8px 44px;
+          }
+
+          .resume-title { font-size: 28px; }
+
+          .resume-rank-label { font-size: 14px; }
+          .resume-rank-number { font-size: 36px; }
+
+          .resume-subtitle-bar {
+            left: 44px;
+            right: 8px;
+            bottom: 6px;
+            height: 20px;
+          }
+          .resume-subtitle { font-size: 14px; }
+
+          .resume-detail-panel {
+            position: relative;
+            top: auto;
+            right: auto;
+            width: calc(100% - 24px);
+            min-height: auto;
+            max-height: 58vh;
+            overflow-y: auto;
+            overflow-x: hidden;
+            margin: 12px 12px 0;
+            clip-path: none;
+            border-radius: 2px;
+            padding-bottom: 24px;
+          }
+
+          .resume-detail-panel--scroll {
+            max-height: 58vh;
+            overflow-y: auto;
+            display: block;
+          }
+
+          .resume-detail-scroll-inner {
+            max-height: none;
+            overflow-y: visible;
+          }
+
+          .resume-detail-panel::-webkit-scrollbar,
+          .resume-detail-panel--scroll::-webkit-scrollbar {
+            width: 4px;
+          }
+          .resume-detail-panel::-webkit-scrollbar-track,
+          .resume-detail-panel--scroll::-webkit-scrollbar-track {
+            background: transparent;
+          }
+          .resume-detail-panel::-webkit-scrollbar-thumb,
+          .resume-detail-panel--scroll::-webkit-scrollbar-thumb {
+            background: rgba(133, 244, 255, 0.35);
+            border-radius: 2px;
+          }
+
+          .resume-detail-top {
+            min-height: 58px;
+            padding: 0 12px;
+            grid-template-columns: 48px 1fr auto;
+            gap: 8px;
+          }
+          .resume-detail-top-index { font-size: 28px; }
+          .resume-detail-top-title { font-size: 24px; }
+          .resume-detail-top-progress { font-size: 24px; }
+
+          .resume-detail-list { margin-top: 10px; gap: 6px; }
+
+          .resume-detail-row {
+            grid-template-columns: 32px 1fr auto;
+            gap: 6px;
+            min-height: 40px;
+            padding: 0 10px;
+          }
+          .resume-detail-row-index { font-size: 15px; }
+          .resume-detail-row-title { font-size: 17px; }
+
+          .resume-detail-status {
+            font-size: 12px;
+            padding: 4px 7px;
+          }
+          .resume-detail-status-sub { font-size: 13px; }
+
+          .resume-detail-bottom { padding: 12px; margin-top: 12px; }
+          .resume-detail-bottom-title { font-size: 20px; margin-bottom: 8px; }
+          .resume-detail-bullet { font-size: 15px; }
         }
 
       `}</style>
@@ -553,6 +708,39 @@ export default function ResumePage({ src }) {
                     </div>
                   </React.Fragment>
                 ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {active === 3 && (
+          <div className="resume-detail-panel">
+            <div className="resume-detail-top">
+              <div className="resume-detail-top-index">03</div>
+              <div className="resume-detail-top-title">EXPERIENCE</div>
+              <div className="resume-detail-top-progress">2/2</div>
+            </div>
+
+            <div className="resume-detail-list">
+              {EXPERIENCE_ROWS.map((row) => (
+                <div className="resume-detail-row" key={row.index} style={row.index === "02" ? { paddingTop: "10px", paddingBottom: "10px" } : {}}>
+                  <div className="resume-detail-row-index">{row.index}</div>
+                  <div className="resume-detail-row-title">{row.title}</div>
+                  <div className="resume-detail-status-wrap">
+                    <div className="resume-detail-status">{row.date}</div>
+                    <div className="resume-detail-status-sub">{row.type}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="resume-detail-bottom">
+              <div className="resume-detail-bottom-title">DETAILS</div>
+              <div className="resume-detail-bullets">
+                <div className="resume-detail-bullet">- Developed responsive, modern user interfaces using React and Next.js.</div>
+                <div className="resume-detail-bullet">- Collaborated with teams using agile workflows and Git for version control.</div>
+                <div className="resume-detail-bullet">- Applied best practices in component-based architecture and clean code.</div>
+                <div className="resume-detail-bullet">- Contributed to real-world projects, improving performance and user experience.</div>
               </div>
             </div>
           </div>

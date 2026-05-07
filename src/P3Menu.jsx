@@ -25,8 +25,9 @@ const ITEMS = [
   },
   {
     id: "github",
-    label: "GITHUB LINK",
+    label: "GITHUB",
     page: "github",
+    href: "https://github.com/Rodrigues4567",
     fontSize: 68,
     offsetX: 8,
     offsetY: 6,
@@ -34,24 +35,15 @@ const ITEMS = [
     skewY: -4,
   },
   {
-    id: "socials",
-    label: "SOCIALS",
-    page: "socials",
-    fontSize: 74,
+    id: "linkedin",
+    label: "LINKEDIN",
+    page: "linkedin",
+    href: "https://www.linkedin.com/in/allyson-rodrigues-web/",
+    fontSize: 68,
     offsetX: 16,
     offsetY: 8,
     skew: -3,
     skewY: 5,
-  },
-  {
-    id: "sideproj",
-    label: "SIDE PROJECTS",
-    page: "sideproj",
-    fontSize: 56,
-    offsetX: 10,
-    offsetY: 6,
-    skew: -4,
-    skewY: 7,
   },
 ];
 
@@ -91,7 +83,10 @@ export default function P3Menu({ onNavigate }) {
       if (e.key === "ArrowUp") activate(Math.max(0, active - 1));
       if (e.key === "ArrowDown")
         activate(Math.min(ITEMS.length - 1, active + 1));
-      if (e.key === "Enter") onNavigate?.(ITEMS[active].page);
+      if (e.key === "Enter") {
+        if (ITEMS[active].href) window.open(ITEMS[active].href, "_blank", "noopener,noreferrer");
+        else onNavigate?.(ITEMS[active].page);
+      }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
@@ -132,6 +127,7 @@ export default function P3Menu({ onNavigate }) {
           opacity: 0;
           transform: translateX(36px);
           transition: opacity 0.38s ease, transform 0.38s cubic-bezier(0.22,1,0.36,1);
+          touch-action: manipulation;
         }
         .p3-row.mounted {
           opacity: 1 !important;
@@ -325,7 +321,9 @@ export default function P3Menu({ onNavigate }) {
                 }}
                 onClick={(e) => {
                   e.preventDefault();
-                  onNavigate?.(item.page);
+                  activate(i);
+                  if (item.href) window.open(item.href, "_blank", "noopener,noreferrer");
+                  else onNavigate?.(item.page);
                 }}
                 onMouseEnter={() => activate(i)}
                 aria-current={isActive ? "page" : undefined}
