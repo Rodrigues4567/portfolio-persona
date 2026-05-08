@@ -22,6 +22,14 @@ Este projeto foi baseado no repositório original criado pelo usuário(a) Blair 
 
 ---
 
+# 🌐 Deploy
+
+Acessar Portfolio Online:
+
+🔗 https://portfolio-persona-lyart.vercel.app/
+
+---
+
 # Funcionalidades
 
 - Interface inspirada em Persona 3 Reload
@@ -62,20 +70,6 @@ O projeto foi adaptado para dispositivos móveis, mantendo a identidade visual i
 
 ## ☁️ Serviços Externos
 - Cloudinary
-
----
-
-# 🚀 Instalação
-
-```bash
-git clone https://github.com/Rodrigues4567/portfolio-persona.git
-
-cd portfolio-persona
-
-npm install
-
-npm run dev
-```
 
 ---
 
