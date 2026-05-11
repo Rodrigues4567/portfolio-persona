@@ -47,13 +47,7 @@ const ITEMS = [
   },
 ];
 
-const CLIP_SHAPES = [
-  (w, h) => `polygon(0px 0px, ${w}px ${h * 0.5}px, 0px ${h}px)`,
-  (w, h) => `polygon(0px 0px, ${w}px ${h * 0.5}px, 0px ${h}px)`,
-  (w, h) => `polygon(0px 0px, ${w}px ${h * 0.5}px, 0px ${h}px)`,
-  (w, h) => `polygon(0px 0px, ${w}px ${h * 0.5}px, 0px ${h}px)`,
-  (w, h) => `polygon(0px 0px, ${w}px ${h * 0.5}px, 0px ${h}px)`,
-];
+const clipShape = (w, h) => `polygon(0px 0px, ${w}px ${h * 0.5}px, 0px ${h}px)`;
 
 export default function P3Menu({ onNavigate }) {
   const [active, setActive] = useState(0);
@@ -90,7 +84,7 @@ export default function P3Menu({ onNavigate }) {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [active]);
+  }, [active, onNavigate]);
 
   return (
     <>
@@ -307,7 +301,6 @@ export default function P3Menu({ onNavigate }) {
             const offsetY = Math.round(item.offsetY * scale);
             const estW = item.label.length * fontSize * 0.6 + 80;
             const estH = fontSize * 0.94;
-            const clipFn = CLIP_SHAPES[i] ?? CLIP_SHAPES[0];
 
             return (
               <a
@@ -341,7 +334,7 @@ export default function P3Menu({ onNavigate }) {
                     style={{
                       width: estW,
                       height: estH,
-                      clipPath: clipFn(estW, estH),
+                      clipPath: clipShape(estW, estH),
                     }}
                   />
                   <div
@@ -349,7 +342,7 @@ export default function P3Menu({ onNavigate }) {
                     style={{
                       width: estW,
                       height: estH,
-                      clipPath: clipFn(estW, estH),
+                      clipPath: clipShape(estW, estH),
                       transform: `translateY(-50%) scaleX(${isActive ? 1 : 0})`,
                     }}
                   />
@@ -364,7 +357,7 @@ export default function P3Menu({ onNavigate }) {
                       className="p3-label-base p3-label-bright"
                       style={{
                         fontSize,
-                        clipPath: clipFn(estW, estH),
+                        clipPath: clipShape(estW, estH),
                       }}
                     >
                       {item.label}

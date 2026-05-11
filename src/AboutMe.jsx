@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import char1 from "./assets/char1.png";
 import char2 from "./assets/char2.png";
-import icon1 from "./assets/icon1.png";
 import mainm from "./assets/mainm.jpeg";
 
 const bgVideo = "https://res.cloudinary.com/dn4t5fdrg/video/upload/q_auto/v1775931424/main1_vsbgmj.mp4";
@@ -25,18 +24,6 @@ const BARS = [
     char: char1,
     role: "LEADER",
     label: "ABOUT ME",
-    handle: "@yourname",
-    href: "https://twitch.tv/yourname",
-    icon: "🎮",
-    barIcon: icon1,
-    bars: 1,
-    newBars: [0],
-    counts: ["56"],
-    links: ["twitch.tv/videos/2041837265"],
-    stats: [
-      { tag: "FOL", value: "1.2K", color: "#9147ff" },
-      { tag: "VWR", value: "042", color: "#bf94ff" },
-    ],
   },
 ];
 
@@ -232,11 +219,6 @@ export default function AboutMe() {
           50% { transform: translateX(-5px); opacity: 0.4; }
         }
 
-        @keyframes sc-arrow-right {
-          0%, 100% { transform: translateX(0); opacity: 1; }
-          50% { transform: translateX(5px); opacity: 0.4; }
-        }
-
         .sc-main-portrait-shell {
           position: absolute;
           top: 0;
@@ -394,14 +376,6 @@ export default function AboutMe() {
           pointer-events: all;
           cursor: pointer;
         }
-        .sc-right-nav .sc-nav-dot {
-          width: 16px;
-          height: 16px;
-          border-radius: 999px;
-          background: #111;
-          margin: 0 10px;
-          flex-shrink: 0;
-        }
         .sc-right-nav .sc-nav-arrow {
           font-family: 'Bebas Neue', sans-serif;
           font-size: 22px;
@@ -410,7 +384,6 @@ export default function AboutMe() {
           user-select: none;
         }
         .sc-right-nav .sc-nav-arrow.left  { animation: sc-arrow-left  0.8s ease-in-out infinite; }
-        .sc-right-nav .sc-nav-arrow.right { animation: sc-arrow-right 0.8s ease-in-out infinite; }
 
         .sc-main-portrait {
           width: 100%;
@@ -453,7 +426,6 @@ export default function AboutMe() {
         .sc-bar-outer.mounted { transform: translateX(0); }
         .sc-bar-outer:nth-child(1) { transition-delay: 0ms; }
         .sc-bar-outer:nth-child(2) { transition-delay: 80ms; }
-        .sc-bar-outer:nth-child(3) { transition-delay: 160ms; }
 
         /* red underlay — peeks out below the bar when active */
         .sc-bar-red {
@@ -552,18 +524,6 @@ export default function AboutMe() {
           gap: 12px;
         }
 
-        .sc-icon {
-          font-family: 'Bebas Neue', sans-serif;
-          font-size: 22px;
-          width: 32px;
-          text-align: center;
-          flex-shrink: 0;
-          color: rgba(255,255,255,0.15);
-          transition: color 0.2s ease;
-          user-select: none;
-        }
-        .sc-bar-outer.active .sc-icon { color: rgba(255,255,255,0.25); }
-
         .sc-label {
           font-family: 'Bebas Neue', sans-serif;
           font-size: 28px;
@@ -574,67 +534,6 @@ export default function AboutMe() {
           user-select: none;
         }
         .sc-bar-outer.active .sc-label { color: #111111; }
-
-        /* right: stats group */
-        .sc-stats {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-          padding-right: 24px;
-          flex-shrink: 0;
-        }
-
-        .sc-stat {
-          display: flex;
-          flex-direction: column;
-          align-items: flex-start;
-        }
-
-        .sc-stat-top {
-          display: flex;
-          align-items: baseline;
-          gap: 4px;
-        }
-
-        .sc-stat-tag {
-          font-family: 'Bebas Neue', sans-serif;
-          font-size: 9px;
-          letter-spacing: 1.5px;
-          padding: 1px 4px;
-          border-width: 1px;
-          border-style: solid;
-          line-height: 1.4;
-          user-select: none;
-        }
-
-        .sc-stat-num {
-          font-family: 'Bebas Neue', sans-serif;
-          font-size: 26px;
-          font-style: italic;
-          line-height: 1;
-          color: #ffffff;
-          letter-spacing: 1px;
-          user-select: none;
-          transition: color 0.2s ease;
-        }
-        .sc-bar-outer.active .sc-stat-num { color: #111111; }
-
-        .sc-stat-bars {
-          width: 100%;
-          display: flex;
-          flex-direction: column;
-          gap: 1px;
-          margin-top: 2px;
-        }
-        .sc-stat-bar-color {
-          height: 3px;
-          width: 100%;
-        }
-        .sc-stat-bar-black {
-          height: 2px;
-          width: 100%;
-          background: #000;
-        }
 
         /* character portrait */
         .sc-char {
@@ -718,13 +617,6 @@ export default function AboutMe() {
           .sc-label {
             font-size: 22px;
           }
-          .sc-icon {
-            font-size: 17px;
-            width: 24px;
-          }
-          .sc-stat-num {
-            font-size: 20px;
-          }
           .sc-back-arrow {
             width: 28px;
             height: 28px;
@@ -753,17 +645,6 @@ export default function AboutMe() {
           .sc-label {
             font-size: 22px;
             letter-spacing: 2px;
-          }
-          .sc-icon {
-            font-size: 18px;
-            width: 18px;
-          }
-          .sc-stat-num {
-            font-size: 14px;
-          }
-          .sc-stats {
-            padding-right: 10px;
-            gap: 6px;
           }
           .sc-back-arrow {
             width: 20px;

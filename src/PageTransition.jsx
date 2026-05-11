@@ -62,48 +62,6 @@ function AboutTransition() {
   ));
 }
 
-
-function SocialsTransition() {
-  const stripes = [
-    { color: "#00184c", left: "72vw", width: "24vw", delay: 0 },
-    { color: "#00dff7", left: "80vw", width: "14vw", delay: 0.06 },
-    { color: "#ffffff", left: "88vw", width: "8vw", delay: 0.12 },
-  ];
-
-  return stripes.map((stripe, i) => (
-    <Motion.div
-      key={i}
-      style={{
-        position: "fixed",
-        top: "-6vh",
-        left: stripe.left,
-        width: stripe.width,
-        height: "112vh",
-        background: stripe.color,
-        zIndex: 999 - i,
-        transform: "skewX(-16deg)",
-        transformOrigin: "top",
-        pointerEvents: "none",
-      }}
-      initial={{ y: -1200, opacity: 1 }}
-      animate={{ y: [-1200, 0, 0, 1200] }}
-      transition={{
-        duration: 0.56,
-        delay: stripe.delay,
-        times: [0, 0.42, 0.58, 1],
-        ease: [0.76, 0, 0.24, 1],
-      }}
-    />
-  ));
-}
-
-function TransitionOverlay({ variant }) {
-  if (variant === "about") return <AboutTransition />;
-  if (variant === "resume") return <ResumeTransition />;
-  if (variant === "socials") return <SocialsTransition />;
-  return <DefaultTransition />;
-}
-
 function ResumeTransition() {
   const cards = [
     { top: "14vh", color: "#0f1760", delay: 0 },
@@ -137,6 +95,12 @@ function ResumeTransition() {
       }}
     />
   ));
+}
+
+function TransitionOverlay({ variant }) {
+  if (variant === "about") return <AboutTransition />;
+  if (variant === "resume") return <ResumeTransition />;
+  return <DefaultTransition />;
 }
 
 export default function PageTransition({ children, variant = "default" }) {

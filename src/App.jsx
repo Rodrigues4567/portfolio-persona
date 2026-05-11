@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import P3Menu from "./P3Menu";
@@ -12,10 +13,11 @@ const ABOUT_VIDEO  = "https://res.cloudinary.com/dn4t5fdrg/video/upload/q_auto/v
 
 function MenuScreen() {
   const navigate = useNavigate();
+  const handleNavigate = useCallback((page) => navigate(`/${page}`), [navigate]);
   return (
     <div id="menu-screen">
       <video src={MENU_VIDEO} preload="auto" autoPlay loop muted playsInline />
-      <P3Menu onNavigate={(page) => navigate(`/${page}`)} />
+      <P3Menu onNavigate={handleNavigate} />
     </div>
   );
 }

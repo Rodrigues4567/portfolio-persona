@@ -33,8 +33,8 @@ const ITEMS = [
 ];
 
 const EDUCATION_ROWS = [
-  { index: "01", title: "Systems Analysis and Development", status: "Complete" },
-  { index: "02", title: "Software Engineering", status: "In Progress" },
+  { index: "01", title: "Systems Analysis and Development", status: "MAR 2023 - DEC 2025", type: "COMPLETE" },
+  { index: "02", title: "Software Engineering", status: "MAR 2026 - JUL 2028", type: "IN PROGRESS" },
 ];
 
 const SKILLS_ROWS = [
@@ -48,12 +48,12 @@ const SKILLS_ROWS = [
   },
   {
     index: "03", title: "Tools",
-    details: ["Docker", "Git & GitHub", "Vercel"],
+    details: ["Docker", "Git & GitHub", "Jest", "Vercel"],
   },
 ];
 
 const EXPERIENCE_ROWS = [
-  { index: "01", title: "Frontend Developer at Frontend Fusion", date: "NOV 2025 - MAI 2026", type: "VOLUNTEER" },
+  { index: "01", title: "Frontend Developer at Frontend Fusion", date: "NOV 2025 - MAY 2026", type: "VOLUNTEER" },
   { index: "02", title: "Frontend Developer at MyByte", date: "FEB 2026 - PRESENT"},
 ];
 
@@ -436,13 +436,6 @@ export default function ResumePage({ src }) {
           flex-direction: column;
           gap: 3px;
         }
-        .resume-detail-row-tech {
-          font-family: 'Bebas Neue', sans-serif;
-          font-size: 17px;
-          letter-spacing: 1px;
-          color: #85f4ff;
-          line-height: 1;
-        }
         .resume-detail-bottom {
           position: relative;
           margin-top: 22px;
@@ -654,10 +647,13 @@ export default function ResumePage({ src }) {
 
             <div className="resume-detail-list">
               {EDUCATION_ROWS.map((row) => (
-                <div className="resume-detail-row" key={row.index}>
+                <div className="resume-detail-row" key={row.index} style={row.index === "02" ? { paddingTop: "10px", paddingBottom: "10px" } : {}}>
                   <div className="resume-detail-row-index">{row.index}</div>
                   <div className="resume-detail-row-title">{row.title}</div>
-                  <div className="resume-detail-status">{row.status}</div>
+                  <div className="resume-detail-status-wrap">
+                    <div className="resume-detail-status">{row.status}</div>
+                    <div className="resume-detail-status-sub">{row.type}</div>
+                  </div>
                 </div>
               ))}
             </div>
@@ -740,7 +736,7 @@ export default function ResumePage({ src }) {
                 <div className="resume-detail-bullet">- Developed responsive, modern user interfaces using React and Next.js.</div>
                 <div className="resume-detail-bullet">- Collaborated with teams using agile workflows and Git for version control.</div>
                 <div className="resume-detail-bullet">- Applied best practices in component-based architecture and clean code.</div>
-                <div className="resume-detail-bullet">- Contributed to real-world projects, improving performance and user experience.</div>
+                <div className="resume-detail-bullet">- REST APIs integrating frontend and backend consistently.</div>
               </div>
             </div>
           </div>
