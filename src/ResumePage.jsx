@@ -614,6 +614,7 @@ export default function ResumePage({ src }) {
               className={`resume-card-wrap${active === index ? " active" : ""}${mounted ? " mounted" : ""}`}
               style={{ transitionDelay: `${index * 55}ms` }}
               onMouseEnter={() => setActive(index)}
+              onTouchStart={() => setActive(index)}
               onClick={() => (item.isBack ? navigate("/") : setActive(index))}
             >
               <div className="resume-card">
